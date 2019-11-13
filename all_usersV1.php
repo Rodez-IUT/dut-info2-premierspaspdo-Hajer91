@@ -17,7 +17,12 @@
 			}catch(PDOException$e){
 				throw new PDOException($e->getMessage(),(int)$e->getCode());
 			}
-			$stmt = $pdo->query('SELECT * FROM users ORDER BY username');
+			$stmt = $pdo->query('SELECT *
+								 FROM users u
+								 JOIN status s
+								 ON u.status_id = s.id
+								 ORDER BY username'
+								);
 			echo "<table border=\"1px\">";
 			echo "<tr>";
 				echo "<td>"."Id"."</td>";
@@ -30,7 +35,7 @@
 				echo "<td>".$row['id']."</td>";
 				echo "<td>".$row['username']."</td>";
 				echo "<td>".$row['email']."</td>";
-				echo "<td>".$row['status_id']."</td>";
+				echo "<td>".$row['name']."</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
