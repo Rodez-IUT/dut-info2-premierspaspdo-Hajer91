@@ -2,12 +2,13 @@
 <head>
 	<body>
 		<?php 
-			$host='localhost';
+			$host='localhost'; // ajouter le port sur UWamp , il utilise le port par defaut mysql = 3306
+			$port = '3306'; //par defaut 
 			$db='my_activities';
 			$user='root';
 			$pass='root';
 			$charset='utf8mb4';
-			$dsn="mysql:host=$host;dbname=$db;charset=$charset";
+			$dsn="mysql:host=$host;dbname=$db;charset=$charset";// ajouter port=$port
 			$options=[
 				PDO::ATTR_ERRMODE				=>PDO::ERRMODE_EXCEPTION,
 				PDO::ATTR_DEFAULT_FETCH_MODE	=>PDO::FETCH_ASSOC,

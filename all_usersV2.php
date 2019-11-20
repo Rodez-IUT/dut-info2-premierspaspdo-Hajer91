@@ -3,7 +3,7 @@
 	<body>
 		<?php 
 			$host='localhost';
-			$db='my_activities';
+			$db='my-activities';
 			$user='root';
 			$pass='root';
 			$charset='utf8mb4';
