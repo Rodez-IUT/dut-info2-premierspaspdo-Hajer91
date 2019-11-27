@@ -26,12 +26,12 @@
 		if (isset($_POST['start_letter'])) { /* true si la variable est initialisée */
 		$start_letter = htmlspecialchars($_POST["start_letter"]);
 		$status_id = (int)$_POST["status_id"] ;
-		$sql="  SELECT users.id as user_id, username, email, s.name as status 
+		$sql="SELECT users.id as user_id, username, email, s.name as status 
 				FROM users 
 				JOIN status s 
 				ON users.status_id = s.id
-				WHERE status_id = $status_id
-				AND username LIKE '$start_letter%'
+				WHERE status_id = :status_id
+				AND username LIKE :start_letter
 				ORDER BY username ASC";
 		} else {
 			$start_letter = " ";
@@ -54,7 +54,8 @@
 		</form>
 <?php
 try {
-	$stmt = $pdo->query($sql);
+	$stmt = $pdo->prepare($sql); /* un énoncé préparé */
+	$stmt->execute(['status_id' => $status_id, 'start_letter' => $start_letter]); 
 ?>
 <table>
     <tr>
