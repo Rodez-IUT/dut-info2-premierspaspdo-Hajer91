@@ -1,0 +1,1 @@
+"L'erreur 1064 s'affiche qu'on a un problème avec la syntaxe SQL:commandes mal tapées ou obsolètes"
