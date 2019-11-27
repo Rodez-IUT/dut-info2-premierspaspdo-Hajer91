@@ -1,4 +1,4 @@
-<html <html lang="fr">
+<html lang="fr">
 <head>
 
 	<body>
@@ -20,26 +20,26 @@
 				throw new PDOException($e->getMessage(),(int)$e->getCode());
 			}
 		?>
-	<h2>ALL USERS</h2>	
+<h2>ALL USERS</h2>	
 		
 		<?php
 		if (isset($_POST['start_letter'])) { /* true si la variable est initialisée */
-		$start_letter = $_POST["start_letter"];
-		$status_id = $_POST["status_id"] ;
-		$sql="SELECT * 
-			  FROM users 
-			  JOIN status s
-			  ON users.status_id = s.id
-			  WHERE status_id = $start_letter
-			  AND username LIKE \'$start_letter%\' 
-			  ORDER BY username ASC";
+		$start_letter = htmlspecialchars($_POST["start_letter"]);
+		$status_id = (int)$_POST["status_id"] ;
+		$sql="  SELECT users.id as user_id, username, email, s.name as status 
+				FROM users 
+				JOIN status s 
+				ON users.status_id = s.id
+				WHERE status_id = $status_id
+				AND username LIKE '$start_letter%'
+				ORDER BY username ASC";
 		} else {
 			$start_letter = " ";
 			$status_id = " ";
-			$sql='SELECT * 
-				   FROM users 
-			       JOIN status s
-			       ON users.status_id = s.id';   
+			$sql='   SELECT users.id as user_id, username, email, s.name as status 
+					 FROM users 
+					 JOIN status s 
+					 ON users.status_id = s.id';   
 		}
 		?>
 		
@@ -48,8 +48,7 @@
 			and status is:
 			<select name="status_id">
 				<option value="1" <?php if ($status_id == 1) echo 'selected' ?>>Waiting for account validation</option>
-				<option value="2" <?php if ($status_id == 2) echo 'selected' ?>>Waiting for account deletion</option>
-				<option value="3" <?php if ($status_id == 3) echo 'selected' ?>>Active account</option>
+				<option value="3" <?php if ($status_id == 2) echo 'selected' ?>>Active account</option>
 			</select>
 			<input type="submit" value="OK">
 		</form>
